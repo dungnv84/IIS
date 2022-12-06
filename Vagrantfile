@@ -1,19 +1,17 @@
 Vagrant.configure("2") do |config|
-    (10..13).each do |i|
-        if i <= 12
+    (1..1).each do |i|
+        if i <= 1
             config.vm.define "fnb-linux-node-#{i}" do |node|
                 node.vm.box = "bento/ubuntu-20.04"
                 node.vm.hostname = "fnb-linux-node-#{i}"
                 # Bridged network
-                node.vm.network "private_network", ip:"192.168.58.#{i}"
+                node.vm.network "private_network", ip:"192.168.58.11#{i}"
                 # Provider-specific configuration
                 node.vm.provider "virtualbox" do |vb|
                     # Customize the amount of memory on the VM
-    			 vb.customize ["modifyvm", :id, "--memory", 1500]
-    			 vb.customize ["modifyvm", :id, "--cpus", 1]
-
+    		    vb.memory = "2048"
                     # Specify machine name
-                    vb.name = "fnb-linux-node-#{i}"
+                    #vb.name = "fnb-linux-node-#{i}"
                 end
             end
 	else 
