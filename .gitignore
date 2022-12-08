@@ -1,0 +1,12 @@
+# OS.
+.DS_Store
+
+# Vagrant.
+.vagrant/
+
+# Ansible.
+*.retry
+*/roles/*
+assets
+cert
+bfg.jar
