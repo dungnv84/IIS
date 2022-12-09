@@ -13,6 +13,14 @@ Vagrant.configure("2") do |config|
                     # Specify machine name
                     #vb.name = "fnb-linux-node-#{i}"
                 end
+        config.vm.provision "shell", inline: <<-SHELL
+       apt update -y
+       apt install ansible -y
+       apt install sshpass -y
+
+       sed -i 's!\[defaults\]!\[defaults\]\nhost\_key\_checking\ = false!' /etc/ansible/ansible.cfg
+        SHELL
+
             end
 	else 
             config.vm.define "win-#{i}" do |node|
