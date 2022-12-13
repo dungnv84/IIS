@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
     (1..2).each do |i|
-        if i <=2 
+        if i <= 1
             config.vm.define "fnb-linux-node-#{i}" do |node|
                 node.vm.box = "bento/ubuntu-20.04"
                 node.vm.hostname = "fnb-linux-node-#{i}"
@@ -12,28 +12,28 @@ Vagrant.configure("2") do |config|
     		    vb.memory = "1024"
                     # Specify machine name
                     #vb.name = "fnb-linux-node-#{i}"
-                end
+               
         config.vm.provision "shell", inline: <<-SHELL
        apt update -y
        apt install ansible -y
        apt install sshpass -y
-
+	sudo su
        sed -i 's!\[defaults\]!\[defaults\]\nhost\_key\_checking\ = false!' /etc/ansible/ansible.cfg
         SHELL
-
+            end
             end
 	else 
-            config.vm.define "win-#{i}" do |node|
-                node.vm.box = "StefanScherer/windows_2016"
-                node.vm.hostname = "win-#{i}"
+            config.vm.define "fnb-linux-node-#{i}" do |node|
+                node.vm.box = "bento/ubuntu-20.04"
+                node.vm.hostname = "fnb-linux-node-#{i}"
                 # Bridged network
-                node.vm.network "private_network", ip:"192.168.58.#{i}"
+                node.vm.network "private_network", ip:"192.168.58.11#{i}"
                 # Provider-specific configuration
-                node.vm.provider "virtualbox" do |vb|
+                node.vm.provider "vmware_workstation" do |vb|
                     # Customize the amount of memory on the VM
-                    vb.memory = "2048"
+    		    vb.memory = "1024"
                     # Specify machine name
-                    #vb.name = "win-#{i}"
+                    #vb.name = "fnb-linux-node-#{i}"
         end
     end
 end
